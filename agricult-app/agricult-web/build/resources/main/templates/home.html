@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+	<title>Agricult</title>
+		<link href="../../css/bootstrap-responsive.min.css" rel="stylesheet"/>
+		<link href="../../css/bootstrap.css" rel="stylesheet" />
+		<link href="../../css/agricult.css" rel="stylesheet" />
+		<link href="../../css/bootstrap.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="../../js/handlebars-v4.0.11.js"></script>
+		<script type="text/javascript" src="../../js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../js/agricult.js"></script>
+</head>
+<body>
+<script id="navTemplate" type="text/x-handlebars-template"> 
+			<ul class="nav">
+					{{#each this}}
+							<li><a href="#" id="{{categoryName}}-nav" style="width : 100px;" class="span1">{{categoryName}}</a></li>
+					{{/each}}
+			</ul>
+</script>
+<script id="productsTemplate" type="text/x-handlebars-template">
+			{{#each this}}
+			<div class="span3">
+                <a class="thumbnail fancybox" rel="ligthbox" href="#" id="openRequest">
+                    <img class="img-responsive" alt="" src="../../img/{{imageFileName}}" />
+                    <div class='text-right'>
+                        <small class='text-muted'>{{productName}}</small>
+                    </div>
+                </a>
+            </div>
+			{{/each}}
+</script>
+<nav class="navbar navbar-inverse">
+	<div class="navbar-inner">
+		<a class="brand" href="/">Agricult</a>
+		<div class="nav-collapse collapse">
+			<div id="categories-nav"></div>
+		</div>
+		<div class="span1">
+		</div>
+		<form class="navbar-search input-append">
+			<input type="search" class="span3" id="appendSearchButtons" />
+			<button class="btn" type="search">search</button>
+		</form>
+		<div class="span1">
+		</div>
+			<ul class="nav">
+				<li><a href="#registrationForm" id="signingUp" data-toggle="modal" >Signup</a></li>
+				<li><a href="#loginForm" id="login" data-toggle="modal" >Login</a></li>
+			</ul>
+	</div>
+</nav>
+<div class="container fluid" id="features">
+	<div id="fruits" style="display:none">
+		<div id="fruitproducts"></div>
+	</div>
+	<div id="veggies" style="display:none">
+		<div id="veggieproducts"></div>
+	</div>
+	<div id="crops" style="display:none">
+		<div id="cropproducts"></div>
+	</div>
+	<div id="diaryAndPoultry" style="display:none">
+		<div id="dairypoultryproducts"></div>
+	</div>
+	<div class="autoModal modal hide fade"  tabindex="-1" id="registrationForm" role="dialog">
+	<form id="register-form" method="post" >
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Registration Form</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="labels">FirstName</label>
+						<input type="text" id="firstName" placeholder="Enter FirstName" />
+					</div>
+					<div class="form-group">
+						<label class="labels">LastName </label>
+						<input type="text" id="lastName" placeholder="Enter LastName" />
+					</div>
+					<div class="form-group">
+						<label class="labels">Date of Birth </label>
+						<input type="text" id="dob" placeholder="Enter DOB" />
+					</div>
+					<div class="form-group">
+						<label class="labels">Mobile Number </label>
+						<input type="text" id="mobileNumber" placeholder="Enter Mobile Number" />
+					</div>
+					<div class="form-group">	
+						<label class="labels">Address </label>
+						<textarea id="address" placeholder="Enter Address Here.." rows="3"></textarea>
+					</div>
+					<div class="form-group">
+						<label class="labels">City </label>
+						<input type="text" id="city" placeholder="Enter City" />
+					</div>
+					<div class="form-group">
+						<label class="labels">State </label>
+						<input type="text" id="state" placeholder="Enter State" />
+					</div>
+					<div class="form-group">
+						<label class="labels">Pincode </label>
+						<input type="text" id="pincode" placeholder="Enter Pincode" />
+					</div>
+					<div class="form-group">
+						<label class="labels">Farmer <input type="radio" name="farmer" value="FARMER" />Merchant <input type="radio" name="merchant" value="MERCHANT" />Consumer <input type="radio" name="consumer" value="CONSUMER" /></label>
+					</div>
+					<div class="form-register">
+						<input type="submit" class="btn btn-primary" id="register">Register</input>
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+	
+	<div class="autoModal modal hide fade"  tabindex="-1" id="requestForm" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Request Form</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="labels">Category </label>
+						<input type="text" placeholder="Enter FirstName" />
+					</div>
+					<div class="form-group">
+						<label class="labels">SubCategory </label>
+						<input type="text" placeholder="Enter LastName" />
+					</div>
+					<div class="form-group">
+						<label class="labels">Type </label>
+						<input type="text" placeholder="Enter DOB" />
+					</div>
+					<div class="form-group">
+						<label class="labels" for="sel1">Quality </label>
+						<select class="form-control" id="quality">
+							<option>A1</option>
+							<option>A2</option>
+							<option>A3</option>
+					  </select>
+					</div>
+					<div class="form-group">
+						<label class="labels">Quantity </label>
+						<input type="text" placeholder="Enter City" />
+					</div>
+					<div class="form-group">	
+						<label class="labels">Shipping Address </label>
+						<textarea placeholder="Enter Address Here.." rows="3"></textarea>
+					</div>
+					<div class="form-group">
+						<label class="labels">Selling price </label>
+						<input type="text" placeholder="Enter State" />
+					</div>
+				<div class="modal-footer">
+					<div class="form-request">
+						<input class="btn btn-primary" type="submit" value="submit" />
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="autoModal modal hide fade"  tabindex="-1" id="loginForm" role="dialog" aria-hidden="true">
+		<form id="login-form" type="post">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Login</h4>
+				</div>
+       			 <div class="modal-body">
+					<div class="control-group">
+						<div class="controls">
+							<div class="input-prepend">
+							<span class="add-on"><i class="icon-user"></i></span>
+							<input id="loginuserid" type="text" placeholder="Enter username" />
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<div class="input-prepend">
+							<span class="add-on"><i class="icon-lock"></i></span>
+							<input id="loginpassword" type="text" placeholder="Enter password" />
+						</div>
+					</div>
+				</div>
+        	</div>
+        	<div class="modal-footer">
+        		<div class="form-request">
+					<input type="submit" id="login-submit" class="btn btn-success"></input>
+						<div class="forgot-password" style="float:right; font-size: 100%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>			
+          					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        				</div>
+        		</div>
+      		</div>
+    	</div>
+    	</form>
+  </div>
+    <div class="autoModal modal hide fade"  tabindex="-1" id="confirmLoginForm" role="dialog" aria-hidden="true">
+    	<form id="signupconfirm-form" method="post" >
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Confirm SignUp</h4>
+					</div>
+	        	<div class="modal-body">
+					<div class="control-group">
+						<div class="controls">
+							<p id="userId" style="color:black;"></p>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<div class="input-prepend">
+								<span class="add-on"><i class="icon-lock"></i></span>
+								<input type="text" id="password" placeholder="Enter password" />
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<div class="input-prepend">
+								<span class="add-on"><i class="icon-lock"></i></span>
+								<input type="text" id="confirmpassword" placeholder="Re-Enter password" />
+							</div>
+						</div>
+					</div>
+	        	</div>
+	        	<div class="modal-footer">
+					<input type="submit" class="btn btn-primary" id="signupconfirm-submit">Signup</input>
+					<div class="forgot-password" style="float:right; font-size: 100%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>			
+	          			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        	</div>
+	      	</div>
+	    </div>
+    </form>
+  </div>		
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+apply plugin : 'java'
+apply plugin : 'eclipse'
+compileJava {
+	options.encoding = "UTF-8"
+}
+
+buildscript {
+	ext {
+	dependencyManagementPluginVersion = '1.0.4.RELEASE'
+	springBootVersion = '2.0.0.RELEASE'
+	}
+
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+	}
+	
+	dependencies {
+		classpath("io.spring.gradle:dependency-management-plugin:${dependencyManagementPluginVersion}")
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+allprojects {
+	group = 'com.agricult.app'
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+}
+
+subprojects {
+	
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+	}
+	
+	apply plugin : 'java'
+	apply plugin : 'eclipse'
+	apply plugin : 'io.spring.dependency-management'
+	
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+		}
+	}
+}
