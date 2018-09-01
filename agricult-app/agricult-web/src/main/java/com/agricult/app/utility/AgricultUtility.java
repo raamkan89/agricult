@@ -8,10 +8,13 @@ public class AgricultUtility {
 
 	public static String generateUserId(Occupation type) {
 		if ((type.toString()).equals("FARMER")) {
+			System.out.println("----FARMER----" + type.toString());
 			return generateFarmerId("FARM");
 		} else if ((type.toString()).equals("MERCHANT")) {
+			System.out.println("----MERCHANT----" + type.toString());
 			return generateMerchantId("MERC");
 		} else if ((type.toString()).equals("CONSUMER")) {
+			System.out.println("----CONSUMER----" + type.toString());
 			return generateConsumerId("CONS");
 		}
 		System.out.println("----NO ENUM----");

@@ -13,17 +13,14 @@ $(document).ready(function() {
 			$('#login-form').modal('hide');
 		});
 	})
-	$('#register').on('click', function() {
-		$('#register-form').submit(function(e) {
+	$('#register').on('click',function(e) {
 			e.preventDefault();
 			registerSubmit();
+			console.log("After registerSubmit();");
 			$('#registrationForm').modal('hide');
 			$("#confirmLoginForm").modal('show');
-			getUserIdDetails();
+			getUserIdDetails();	
 		});
-	})
-	alert(user["firstName"]);
-	alert(user["userId"]);
 });
 
 $(function() {
@@ -50,8 +47,7 @@ function registerSubmit() {
 	user["city"] = $("#city").val();
 	user["state"] = $("#state").val();
 	user["pincode"] = $("#pincode").val();
-	user["occupationType"] = $('form input[type=radio]:checked').val();
-
+	user["occupationType"] = $('form input[name=radioType]:checked').val();
 	$.ajax({
 		type : "post",
 		contentType : "application/json",
@@ -60,10 +56,13 @@ function registerSubmit() {
 		dataType : 'json',
 		cache : false,
 		timeout : 60000,
+		async : false,
 		success : function(data) {
-			console.log("Success");
+			console.log("Sign Up Success" + JSON.stringify(data));
+			
 		}
 	})
+	
 }
 
 function loginSubmit() {
@@ -86,6 +85,7 @@ function loginSubmit() {
 
 
 function confirmRegister(user){
+	console.log("confirmRegister:user"+JSON.stringify(user));
 	$('#userId').html(user.userId);
 	$('#signupconfirm-submit').click(function() {
 		$('#signupconfirm-form').submit(function(e) {
@@ -109,6 +109,7 @@ function confirmRegister(user){
 }
 
 function getUserIdDetails() {
+console.log("Inside getUserIdDetails");
 	var firstName = $("#firstName").val();
 	var dob = $("#dob").val();
 	$.ajax({
@@ -119,10 +120,13 @@ function getUserIdDetails() {
 		cache : false,
 		timeout : 60000,
 		success : function(response) {
-			userDetails = JSON.stringify(response);
+			
+			var userDetails = JSON.stringify(response);
+		    console.log("getUserIdDetails userDetails:::"+userDetails);
 			confirmRegister(response);
 		},
 		error : function(response) {
+			console.log("response:"+response);
 			return response;
 		}
 	});

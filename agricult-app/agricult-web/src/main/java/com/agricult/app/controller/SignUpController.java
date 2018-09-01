@@ -17,26 +17,26 @@ public class SignUpController {
 
 	@Autowired
 	SignUpService signUpService;
-	
 
 	@PostMapping("signup")
-	public void signup(@RequestBody(required = true) User user) {
+	public User signup(@RequestBody(required = true) User user) {
+		System.out.println("Before* " + user.getOccupationType());
 		String userId = AgricultUtility.generateUserId(Occupation.valueOf(user.getOccupationType()));
+		System.out.println("After* " + user.getOccupationType() + " " + userId);
 		user.setUserId(userId);
 		signUpService.signUpDetails(user);
+		return user;
 	}
 
 	@PostMapping("confirm-register")
 	public void confirmRegister(@RequestBody(required = true) User user) {
-		if(user.getPassword().equals(user.getConfirmPassword())) {
+		if (user.getPassword().equals(user.getConfirmPassword())) {
 			signUpService.confirmRegister(user.getDob(), user.getUserId(), user.getPassword());
 		}
 	}
-	
-	
-	
+
 	@GetMapping("getUserId/{firstname}/{dob}")
-	public User getUserId(@PathVariable("firstname") String firstName,@PathVariable("dob") String dob) {
+	public User getUserId(@PathVariable("firstname") String firstName, @PathVariable("dob") String dob) {
 		return signUpService.userIdDetails(firstName, dob);
 	}
 }

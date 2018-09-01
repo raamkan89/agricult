@@ -1,6 +1,8 @@
 package com.agricult.app.controller;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +24,5 @@ public class HomeController {
 		System.out.println("-----------PostContruct-----------");
 		homeService.copyImagesAndUpdatePath();
 	}
-
+	
 }
